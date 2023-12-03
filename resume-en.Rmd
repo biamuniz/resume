@@ -38,7 +38,6 @@ skill_data <- read.csv('./data/skill_data.csv', stringsAsFactors = F)
 if(params$doctype == "HTML") {
   glue::glue('
     - <i class="fa fa-map-marked-alt"></i> Cajamar, São Paulo
-    - <i class="fa fa-phone"></i> <a href="tel:+11972562470">(11) 972562470</a>
     - <i class="fa fa-envelope"></i> bnc.muniz@gmail.com
     - <i class="fa fa-envelope"></i> biancamuniz@apublica.com
     - <i class="fa fa-github"></i> [github.com/biamuniz](https://github.com/biamuniz)
@@ -48,7 +47,6 @@ if(params$doctype == "HTML") {
 if(params$doctype == "PDF") {
   glue::glue('
     - <i class="fa fa-map-marked-alt"></i> Cajamar, São Paulo
-    - <i class="fa fa-phone"></i> <a href="tel:+11972562470">(11) 972562470</a>
     - <i class="fa fa-envelope"></i> bnc.muniz@gmail.com
     - <i class="fa fa-envelope"></i> biancamuniz@apublica.com
     - <i class="fa fa-github"></i> [github.com/biamuniz](https://github.com/biamuniz)
@@ -86,7 +84,7 @@ build_skill_bars(skill_data, "R Packages")
 ```
 
 
-## Languages
+## Languages {#rpackages}
 
 -   Portuguese
 -   English
@@ -137,13 +135,13 @@ print_section(position_data, 'education')
 print_section(position_data, 'awards')
 ```
 
-## Talks {data-icon="award" data-concise="true"}
+## Talks {data-icon="person-chalkboard" data-concise="true"}
 
 ```{r talks}
 print_section(position_data, 'talks')
 ```
 
-## Voluntary work {data-icon="award" data-concise="true"}
+## Voluntary work {data-icon="people-group" data-concise="true"}
 
 -   R-Ladies São Paulo
 -   Cursinho pré-vestibular Jeannine Aboulafia
