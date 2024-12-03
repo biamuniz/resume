@@ -22,7 +22,7 @@ source("cv_printing_functions.r")
 
 # Read in all data and initialize a CV printer object
 CV <- create_CV_object(
-  data_location = "https://docs.google.com/spreadsheets/d/1E7F5P5SA0-RW2OeCfpuQSEEGTjvc03_xcYQvnqR_zuA/edit#gid=1730172225",  
+  data_location = "https://docs.google.com/spreadsheets/d/18s6-s3Rfee62fEGagd0JziyXlnQHXGzq-KRmsJxMhfM/edit?usp=sharing",  
   pdf_mode = params$pdf_mode
 )
 
@@ -44,26 +44,26 @@ if(params$pdf_mode) {
 
 ```{r}
 if(params$pdf_mode){
-  cat("View this CV online with links at biamuniz.github.io/resume/")
+  cat("Veja este CV online em biamuniz.github.io/resume/")
 } else {
   cat("[<i class='fas fa-download'></i> Download a PDF of this CV](https://github.com/biamuniz/resume/raw/master/bmuniz_cv.pdf)")
 }
 ```
 
-## Contact {#contact}
+## Contato {#contact}
 
 ```{r}
 CV %>% print_contact_info()
 ```
 
-## Languages {#skills}
+## Idiomas {#skills}
 
 ```{r}
 CV %>% print_skill_bars()
 ```
 
 
-## Tech skills {#hard}
+## Hard skills {#hard}
 
 ```{r}
 CV %>% print_hard_bars()
@@ -86,13 +86,13 @@ CV %>% print_soft_bars()
 CV %<>% print_text_block("intro") 
 ```
 
-## Work Experience {data-icon="suitcase"}
+## Experiência Profissional {data-icon="suitcase"}
 
 ```{r}
 CV %<>% print_section('work')
 ```
 
-## Education {data-icon="graduation-cap"}
+## Formação Acadêmica {data-icon="graduation-cap"}
 
 ```{r}
 CV %<>% print_section('education')
@@ -100,7 +100,7 @@ CV %<>% print_section('education')
 
 <!-- These breaks just force a new page so section doesnt get cut off -->
 
-## Additional experiences {data-icon="presentation"}
+## Experiências complementares {data-icon="presentation"}
 
 ```{r}
 CV %<>% print_section('talks')
@@ -108,11 +108,10 @@ CV %<>% print_section('talks')
 
 ## Disclaimer {#disclaimer}
 
-Made with the R package <br>
+Feito com o pacote em R <br>
 [**pagedown**](https://github.com/rstudio/pagedown).
 
-The source code is available <br>
-[on github.com/biamuniz/resume](https://github.com/biamuniz/resume).
 
-Last updated on `r Sys.Date()`.
+
+Última atualização `r Sys.Date()`.
 
