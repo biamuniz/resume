@@ -49,7 +49,7 @@ awards <- awd_data %>%
   summarize(bullets = paste(display_text, collapse = "\n"))
 
 grants <- gnt_data %>%
-  mutate(display_text = glue("- **{role}:** *{title}*{ifelse(is.na(start), '', paste0(' (', start, '--', end, ')'))}. {sponsor}{ifelse(is.na(funding), '.', paste0('; $', prettyNum(funding, big.mark = ','), '.'))} {ifelse(is.na(pi), '', paste0('PI: ', pi, '.'))}")) %>%
+  mutate(display_text = glue("- **{role}:** *{title}*{ifelse(is.na(start), '', paste0(' (', start, '--', end, ')'))}. {sponsor}{ifelse(is.na(funding), '.', paste0('; $', prettyNum(funding, big.mark = ','), '.'))} {ifelse(is.na(pi), '', paste0(pi, '.'))}")) %>%
   mutate(role = factor(role,
                        levels = c("Pesquisadora",
                                   "Pesquisadora visitante",
@@ -61,7 +61,7 @@ grants <- gnt_data %>%
   summarize(bullets = paste(display_text, collapse = "\n"))
 
 fes <- fes_data %>%
-  mutate(display_text = glue("- **{role}:** *{title}*{ifelse(is.na(start), '', paste0(' (', start, '--', end, ')'))}. {sponsor}{ifelse(is.na(funding), '.', paste0('; $', prettyNum(funding, big.mark = ','), '.'))} {ifelse(is.na(pi), '', paste0('PI: ', pi, '.'))}")) %>%
+  mutate(display_text = glue("- **{role}:** *{title}*{ifelse(is.na(start), '', paste0(' (', start, '--', end, ')'))}. {sponsor}{ifelse(is.na(funding), '.', paste0('; $', prettyNum(funding, big.mark = ','), '.'))} {ifelse(is.na(pi), '', paste0(pi, '.'))}")) %>%
   mutate(role = factor(role,
                        levels = c("Pesquisadora",
                                   "Pesquisadora visitante",
@@ -112,12 +112,12 @@ CV %>% print_contact_info()
 -   Generalized linear models
 -   Multilevel models
 
-## Idiomas 
+## Idiomas {#skills}
 -   Português: Nativo
 -   Inglês: Avançado
 -   Espanhol: Básico
 
-## Voluntariado 
+## Voluntariado {#skills}
 
 - Membro da organização da [R-Ladies São Paulo](https://rladies-sp.org/)
 - Texas Tribune Festival (2022): Evento sobre a política texana, em Austin
@@ -159,7 +159,7 @@ CV %<>% print_section('education')
 ## Reconhecimento {data-icon="award"}
 
 ```{r print-awds, echo = FALSE}
-bind_rows(awards, grants, fes) %>%
+bind_rows(awards, fes) %>% #grants
   mutate(status = factor(status,
                          levels = c("Prêmios e indicações",
                                     "Fellowships e scholarships",
