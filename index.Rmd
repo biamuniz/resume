@@ -103,14 +103,17 @@ CV %>% print_contact_info()
 ```
 
 ## Skills {#skills}
+-   **Visualização de Dados**: Datawrapper, Flourish, QGIS, Mapbox, D3.js (básico)
+
+-   **Design & UI**: Figma, Photoshop
+
+-   **Programação & Automação**: R, RMarkdown, Python, HTML/CSS/JavaScript (básico)
+
+-   **Análise de Dados**: Estatística descritiva, manipulação de dados (processamento e análise co editores de planilhas, como Excel, Google Sheets)
+
+-   **Jornalismo**: Entrevista, LAI, jornalismo investigativo e socioambiental
 
 -   **Programação**: R, RMarkdown, Quarto, Python, HTML
-
--   **Jornalismo:** Entrevista; Lei de Acesso à Informação; Jornalismo investigativo; cobertura de saúde, socioambiental, xxxxxx
-
-**Análise de Dados:** Estatística descritiva;
--   Generalized linear models
--   Multilevel models
 
 ## Idiomas {#skills}
 -   Português: Nativo
