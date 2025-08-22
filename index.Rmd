@@ -1,5 +1,5 @@
 ---
-title: "Bianca Muniz's CV"
+title: "Bianca Muniz"
 author: Bianca Muniz
 date: "`r Sys.Date()`"
 params:
@@ -22,9 +22,55 @@ source("cv_printing_functions.r")
 
 # Read in all data and initialize a CV printer object
 CV <- create_CV_object(
-  data_location = "https://docs.google.com/spreadsheets/d/18s6-s3Rfee62fEGagd0JziyXlnQHXGzq-KRmsJxMhfM/edit?usp=sharing",  
-  pdf_mode = params$pdf_mode
+  data_location = "https://docs.google.com/spreadsheets/d/18s6-s3Rfee62fEGagd0JziyXlnQHXGzq-KRmsJxMhfM/edit?gid=917338460#gid=917338460",  
+  pdf_mode = TRUE
 )
+library(googlesheets4)
+library(tidyverse)
+library(glue)
+
+awd_data <- read_sheet("https://docs.google.com/spreadsheets/d/1_CPqTPEhmnyrj-ku_xp9LjHRefrMyIdXjVf6gVXI2RQ/edit?usp=sharing", sheet = "awards")
+gnt_data <- read_sheet("https://docs.google.com/spreadsheets/d/1_CPqTPEhmnyrj-ku_xp9LjHRefrMyIdXjVf6gVXI2RQ/edit?usp=sharing", sheet = "grants") %>%
+  filter(display) %>%
+  select(-display)
+fes_data <- read_sheet("https://docs.google.com/spreadsheets/d/1_CPqTPEhmnyrj-ku_xp9LjHRefrMyIdXjVf6gVXI2RQ/edit?usp=sharing", sheet = "fes") %>%
+  filter(display) %>%
+  select(-display)
+
+
+awards <- awd_data %>%
+  filter(display) %>%
+  arrange(desc(start_date), award) %>%
+  mutate(date = case_when(is.na(end_date) ~ as.character(start_date),
+                          TRUE ~ paste0(start_date, "--", end_date)),
+         display_text = glue("- {award} ({date})"),
+         status = "Prêmios e indicações") %>%
+  group_by(status) %>%
+  summarize(bullets = paste(display_text, collapse = "\n"))
+
+grants <- gnt_data %>%
+  mutate(display_text = glue("- **{role}:** *{title}*{ifelse(is.na(start), '', paste0(' (', start, '--', end, ')'))}. {sponsor}{ifelse(is.na(funding), '.', paste0('; $', prettyNum(funding, big.mark = ','), '.'))} {ifelse(is.na(pi), '', paste0('PI: ', pi, '.'))}")) %>%
+  mutate(role = factor(role,
+                       levels = c("Pesquisadora",
+                                  "Pesquisadora visitante",
+                                  "Bolsista")),
+         status = factor(status,
+                         levels = c("Grants"))) |> 
+  arrange(status, role, desc(start)) %>%
+  group_by(status) %>%
+  summarize(bullets = paste(display_text, collapse = "\n"))
+
+fes <- fes_data %>%
+  mutate(display_text = glue("- **{role}:** *{title}*{ifelse(is.na(start), '', paste0(' (', start, '--', end, ')'))}. {sponsor}{ifelse(is.na(funding), '.', paste0('; $', prettyNum(funding, big.mark = ','), '.'))} {ifelse(is.na(pi), '', paste0('PI: ', pi, '.'))}")) %>%
+  mutate(role = factor(role,
+                       levels = c("Pesquisadora",
+                                  "Pesquisadora visitante",
+                                  "Bolsista")),
+         status = factor(status,
+                         levels = c("Fellowships e scholarships"))) |> 
+  arrange(status, role, desc(start)) %>%
+  group_by(status) %>%
+  summarize(bullets = paste(display_text, collapse = "\n"))
 
 ```
 
@@ -56,25 +102,29 @@ if(params$pdf_mode){
 CV %>% print_contact_info()
 ```
 
-## Idiomas {#skills}
+## Skills {#skills}
 
-```{r}
-CV %>% print_skill_bars()
-```
+-   **Programação**: R, RMarkdown, Quarto, Python, HTML
 
+-   **Jornalismo:** Entrevista; Lei de Acesso à Informação; Jornalismo investigativo; cobertura de saúde, socioambiental, xxxxxx
 
-## Hard skills {#hard}
+**Análise de Dados:** Estatística descritiva;
+-   Generalized linear models
+-   Multilevel models
 
-```{r}
-CV %>% print_hard_bars()
-```
+## Idiomas 
+-   Português: Nativo
+-   Inglês: Avançado
+-   Espanhol: Básico
 
-## Soft skills {#soft}
+## Voluntariado 
 
-```{r}
-CV %>% print_soft_bars()
-```
+- Membro da organização da [R-Ladies São Paulo](https://rladies-sp.org/)
+- Texas Tribune Festival (2022): Evento sobre a política texana, em Austin
+- Austin Parks Foundation (2022)
+- Cursinho pré-vestibular Jeannine Aboulafia (CUJA - Unifesp): Professora de literatura em 2017 e 2018
 
+<!-- These breaks just force a new page so section doesnt get cut off -->
 
 
 # Main
@@ -100,11 +150,37 @@ CV %<>% print_section('education')
 
 <!-- These breaks just force a new page so section doesnt get cut off -->
 
-## Experiências complementares {data-icon="presentation"}
 
 ```{r}
-CV %<>% print_section('talks')
+## Palestras e workshops {data-icon="presentation"}
+#CV %<>% print_section('talks')
 ```
+
+## Reconhecimento {data-icon="award"}
+
+```{r print-awds, echo = FALSE}
+bind_rows(awards, grants, fes) %>%
+  mutate(status = factor(status,
+                         levels = c("Prêmios e indicações",
+                                    "Fellowships e scholarships",
+                                    "Grants"),
+                         labels = c("Prêmios e indicações",
+                                    "Fellowships e scholarships",
+                                    "Grants"))) %>%
+  arrange(status) %>%
+  glue_data(
+    "### {status}",
+    "\n\n",
+    "{bullets}",
+    "\n\n",
+    "N/A",
+    "\n\n\n"
+  )
+
+```
+<!-- These breaks just force a new page so section doesnt get cut off -->
+
+
 
 ## Disclaimer {#disclaimer}
 
