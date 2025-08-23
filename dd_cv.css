@@ -5,6 +5,7 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 300;
   line-height: 1.3;
+  font-size: 120px;
   color: #444;
 }
 
@@ -100,7 +101,7 @@ sup {
 .info-card{
   width: 220px;
   float: left;
-  padding: 0.5rem;
-  margin: 0.5rem;
+  padding: 0.1rem;
+  margin: 0.1rem;
   box-shadow: 1px 1px 4px black;
 }
